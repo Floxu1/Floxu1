@@ -1,0 +1,54 @@
+name: Refresh profile activity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 5 * * *'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/profile-activity.yml'
+      - 'scripts/render_activity.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-assets
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - name: Render current activity
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 -m venv "$RUNNER_TEMP/profile-venv"
+          "$RUNNER_TEMP/profile-venv/bin/pip" install --disable-pip-version-check 'Pillow==12.3.0'
+          "$RUNNER_TEMP/profile-venv/bin/python" scripts/render_activity.py "$RUNNER_TEMP/activity"
+      - name: Publish to profile-assets
+        run: |
+          branch=refs/heads/profile-assets
+          publish="$RUNNER_TEMP/profile-publish"
+          if git ls-remote --exit-code origin "$branch"; then
+            git fetch --no-tags --depth=1 origin "$branch"
+            git worktree add --detach "$publish" FETCH_HEAD
+          elif [ "$?" -eq 2 ]; then
+            git worktree add --detach "$publish" HEAD
+          else
+            exit 1
+          fi
+          mkdir -p "$publish/assets/activity"
+          cp "$RUNNER_TEMP/activity/"* "$publish/assets/activity/"
+          cd "$publish"
+          git add assets/activity
+          if ! git diff --cached --quiet; then
+            git -c 'user.name=Floxu1' -c 'user.email=86294787+Floxu1@users.noreply.github.com' \
+              commit -m 'Refresh profile activity'
+          else
+            echo 'Activity assets already match the publishing branch.'
+          fi
+          git push origin "HEAD:$branch"
