@@ -5,7 +5,7 @@
 
 ## Open-source network engineer & VPN developer
 
-I build privacy-focused VPN clients and routing tools for Android and Windows. My work spans Rust networking, Android VPN architecture, and Xray integration, with ongoing research into QUIC and MASQUE for censorship-resistant networking.
+I build privacy-focused VPN clients and routing tools for Android and Windows. My work spans Rust networking, Android VPN architecture, and Xray integration, with research into QUIC and MASQUE for censorship-resistant networking.
 
 [Browse repositories](https://github.com/Floxu1?tab=repositories) · [UAC on Telegram](https://t.me/UacSniSpoofer)
 
@@ -14,53 +14,51 @@ I build privacy-focused VPN clients and routing tools for Android and Windows. M
   <img src="assets/terminal.gif" width="100%" alt="">
 </picture>
 
-## Selected projects
+## UAC SNI Spoofer
 
-<a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Android">
-  <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="assets/projects/android.png">
-    <img src="assets/projects/android.gif" width="100%" alt="UAC SNI Spoofer for Android">
-  </picture>
-</a>
+<p>
+  <a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Android">
+    <picture>
+      <source media="(prefers-reduced-motion: reduce)" srcset="assets/projects/android.png">
+      <img src="assets/projects/android.gif" width="100%" alt="UAC SNI Spoofer for Android">
+    </picture>
+  </a><br>
+  <strong><a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Android">Android VPN client</a></strong> &nbsp; <a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Android"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-android.svg" width="56" align="middle" alt="Android repository stars"></a><br>
+  A <code>VpnService</code> client with a native TUN bridge. Its Jetpack Compose interface brings together Xray, Tor, and the Rust-powered Aether transport.<br>
+  <samp>Kotlin / Rust / Xray</samp>
+</p>
 
-### [UAC SNI Spoofer for Android](https://github.com/Floxu1/UAC-SNI-Spoofer-Android)
+<p>
+  <a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Windows">
+    <picture>
+      <source media="(prefers-reduced-motion: reduce)" srcset="assets/projects/windows.png">
+      <img src="assets/projects/windows.gif" width="100%" alt="UAC SNI Spoofer for Windows">
+    </picture>
+  </a><br>
+  <strong><a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Windows">Windows desktop client</a></strong> &nbsp; <a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Windows"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-windows.svg" width="56" align="middle" alt="Windows repository stars"></a><br>
+  Rule-based routing, Xray connections, and live Windows proxy controls. Supports system proxy and TUN modes.<br>
+  <samp>Python / PySide6 / Xray</samp>
+</p>
 
-An Android VPN client built on `VpnService` and a native TUN bridge. It brings Xray, Tor and a Rust-powered Aether transport into one Jetpack Compose interface.
+### Companion projects
 
-`Kotlin` · `Rust` · `Xray` &nbsp; <a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Android"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-android.svg" width="56" align="middle" alt="Android repository stars"></a>
+<p>
+  <a href="https://github.com/Floxu1/UAC-GATEWAY">
+    <img src="assets/projects/gateway.png" width="100%" alt="UAC Gateway routing from a Windows VPN to LAN devices">
+  </a><br>
+  <strong><a href="https://github.com/Floxu1/UAC-GATEWAY">UAC Gateway</a></strong> &nbsp; <a href="https://github.com/Floxu1/UAC-GATEWAY"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-gateway.svg" width="56" align="middle" alt="Gateway repository stars"></a><br>
+  Shares a Windows VPN route or local proxy with TVs and other LAN devices. It detects network adapters and shows the settings each device needs.<br>
+  <samp>Python / PySide6 / WinNAT</samp>
+</p>
 
-<a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Windows">
-  <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="assets/projects/windows.png">
-    <img src="assets/projects/windows.gif" width="100%" alt="UAC SNI Spoofer for Windows">
-  </picture>
-</a>
-
-### [UAC SNI Spoofer for Windows](https://github.com/Floxu1/UAC-SNI-Spoofer-Windows)
-
-A Windows desktop client for rule-based routing, Xray connections and live system proxy control. It supports both system proxy and TUN modes.
-
-`Python` · `PySide6` · `Xray` &nbsp; <a href="https://github.com/Floxu1/UAC-SNI-Spoofer-Windows"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-windows.svg" width="56" align="middle" alt="Windows repository stars"></a>
-
-<a href="https://github.com/Floxu1/UAC-GATEWAY">
-  <img src="assets/projects/gateway.png" width="100%" alt="UAC Gateway">
-</a>
-
-### [UAC Gateway](https://github.com/Floxu1/UAC-GATEWAY)
-
-Shares a Windows VPN route or local proxy with TVs and other LAN devices. It detects network adapters and shows the settings each device needs.
-
-`Python` · `PySide6` · `WinNAT` &nbsp; <a href="https://github.com/Floxu1/UAC-GATEWAY"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-gateway.svg" width="56" align="middle" alt="Gateway repository stars"></a>
-
-<a href="https://github.com/Floxu1/BehroozuacV2ray-Android-TV">
-  <img src="assets/projects/android-tv.png" width="100%" alt="Behroozuac V2Ray for Android TV">
-</a>
-
-### [Behroozuac V2Ray for Android TV](https://github.com/Floxu1/BehroozuacV2ray-Android-TV)
-
-A v2rayNG-based client for Android TV. Add configurations from a phone or by QR code and let the TV pick a connection using real latency tests.
-
-`Kotlin` · `Android TV` · `V2Ray` &nbsp; <a href="https://github.com/Floxu1/BehroozuacV2ray-Android-TV"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-android-tv.svg" width="56" align="middle" alt="Android TV repository stars"></a>
+<p>
+  <a href="https://github.com/Floxu1/BehroozuacV2ray-Android-TV">
+    <img src="assets/projects/android-tv.png" width="100%" alt="Behroozuac V2Ray importing a configuration from phone to TV">
+  </a><br>
+  <strong><a href="https://github.com/Floxu1/BehroozuacV2ray-Android-TV">Behroozuac V2Ray for Android TV</a></strong> &nbsp; <a href="https://github.com/Floxu1/BehroozuacV2ray-Android-TV"><img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/stars-android-tv.svg" width="56" align="middle" alt="Android TV repository stars"></a><br>
+  A v2rayNG-based client with phone and QR configuration imports. The TV uses real latency tests to pick a connection.<br>
+  <samp>Kotlin / Android TV / V2Ray</samp>
+</p>
 
 ## Open-source activity
 
@@ -75,6 +73,5 @@ A v2rayNG-based client for Android TV. Add configurations from a phone or by QR 
   <img src="https://raw.githubusercontent.com/Floxu1/Floxu1/refs/heads/profile-assets/assets/activity/snake-light.gif" width="100%" alt="Contribution snake crossing the last year of GitHub activity">
 </picture>
 
-The daily snapshot uses public GitHub data. Language shares use bytes from public non-fork repositories.
-
+Daily snapshot of public GitHub activity. Language shares use bytes from non-fork repositories.<br>
 [GitHub activity](https://github.com/Floxu1?tab=overview) · [Followers](https://github.com/Floxu1?tab=followers) · [Achievements](https://github.com/Floxu1?tab=achievements)

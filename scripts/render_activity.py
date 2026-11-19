@@ -165,6 +165,7 @@ def render_snake(folder, weeks, theme, colors):
                 draw.rounded_rectangle(bounds(column, row), radius=2, fill=colors[1 + level])
             path.append((column, row))
     board.save(folder / f"snake-{theme}.png", optimize=True)
+    initial_board = board.copy()
 
     palette = board.quantize()
     palette.putpalette([int(color[index:index + 2], 16) for color in colors for index in (1, 3, 5)])
@@ -180,11 +181,18 @@ def render_snake(folder, weeks, theme, colors):
         trace.line(points[-6:], fill=colors[5], width=4)
         trace.rounded_rectangle(bounds(column, row, 4), radius=2, fill=colors[6])
         frames.append(frame.quantize(palette=palette, dither=Image.Dither.NONE))
+
+    # Restore the contribution map in a sweep before the snake loops.
+    for step in range(16, -1, -1):
+        edge = size[0] * step // 17
+        restored = frame.copy()
+        restored.paste(initial_board.crop((edge, 0, *size)), (edge, 0))
+        frames.append(restored.quantize(palette=palette, dither=Image.Dither.NONE))
     gif = folder / f"snake-{theme}.gif"
     frames[0].save(gif, save_all=True, append_images=frames[1:], loop=0, optimize=True,
-                   duration=[700] + [40] * (len(frames) - 2) + [850])
+                   duration=[440] + [40] * (len(path) - 1) + [260] + [40] * 17)
     with Image.open(gif) as output:
-        assert output.n_frames == len(frames) and output.info["loop"] == 0, gif
+        assert output.n_frames >= len(path) and output.info["loop"] == 0, gif
 
 
 def render(output):

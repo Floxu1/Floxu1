@@ -154,27 +154,34 @@ def hero():
 
 
 def terminal():
-    base = Image.new("RGB", (880, 72), INK)
+    base = Image.new("RGB", (704, 68), INK)
     draw = ImageDraw.Draw(base)
-    draw.rounded_rectangle((0, 0, 879, 71), radius=10, outline="#274358")
-    label(draw, (23, 23), "$", 28, CYAN)
-    draw.line((551, 36, 846, 36), fill="#254c60", width=2)
-    for x in (551, 628, 716, 793, 846):
-        node(draw, (x, 36), 4, "#4a859a", open_center=True)
-    command = "trace --via rust/quic"
+    draw.rounded_rectangle((0, 0, 703, 67), radius=10, outline="#274358")
+    label(draw, (21, 18), "$", 37, CYAN)
+    route = [(405, 37), (472, 37), (491, 24), (575, 24), (594, 37), (676, 37)]
+    draw.line(route, fill="#2c5369", width=2)
+    for point in (route[0], route[3], route[-1]):
+        node(draw, point, 4, "#56899d", open_center=True)
+    command = "trace route"
+    clear = ImageColor.getrgb(INK)
+    ink = ImageColor.getrgb(WHITE)
+    face = font(37)
     frames = []
-    for i in range(48):
+    for i in range(56):
         frame = base.copy()
         draw = ImageDraw.Draw(frame)
-        typed = command[: i + 1] if i < 42 else command[: (48 - i) * 3]
-        label(draw, (56, 23), typed, 28, WHITE)
-        if i % 12 < 8 or i < len(command):
-            x = 60 + round(font(28).getlength(typed))
-            draw.rectangle((x, 26, x + 10, 47), fill=CYAN)
-        pulse(draw, [(551, 36), (846, 36)], i / 48)
+        typed = command[:max(0, i - 3)]
+        opacity = sin(pi / 2 * min(1, (55 - i) / 6)) ** 2
+        if typed:
+            color = tuple(round(a + (b - a) * opacity) for a, b in zip(clear, ink))
+            draw.text((55, 18), typed, fill=color, font=face, anchor="lt")
+        cursor_x = 58 + round(face.getlength(typed) * opacity)
+        draw.rectangle((cursor_x, 19, cursor_x + 3, 49), fill=CYAN)
+        if 14 < i < 46:
+            pulse(draw, route, (i - 14) / 32)
         frames.append(frame)
-    frames[30].save(ASSETS / "terminal-static.png", optimize=True)
-    save_loop(ASSETS / "terminal.gif", frames, 95)
+    frames[36].save(ASSETS / "terminal-static.png", optimize=True)
+    save_loop(ASSETS / "terminal.gif", frames, 90)
 
 
 def projects():
@@ -182,19 +189,19 @@ def projects():
     directory.mkdir(parents=True, exist_ok=True)
     diagrams = {
         "android": ("Android", "Device tunnel", CYAN, ("VpnService", "TUN", "Xray / Tor")),
-        "windows": ("Windows", "Desktop routing", BLUE, ("Desktop", "Route rules", "Proxy / TUN")),
+        "windows": ("Windows", "Desktop routing", BLUE, ("Desktop", "Rules", "Proxy / TUN")),
         "gateway": ("Gateway", "VPN sharing", CYAN, ("VPN", "Windows", "LAN")),
         "android-tv": ("Android TV", "Remote-first client", BLUE, ("Phone", "QR / Web", "TV")),
     }
     for index, (slug, (title, subtitle, accent, ports)) in enumerate(diagrams.items()):
-        height = 172 if index < 2 else 112
+        height = 156 if index < 2 else 112
         middle = height // 2
         base = background((936, height), 641)
         draw = ImageDraw.Draw(base)
         draw.rounded_rectangle((0, 0, 935, height - 1), radius=12, outline="#244054", width=2)
         draw.line((28, 24, 28, height - 24), fill=accent, width=3)
-        label(draw, (54, 31 if index < 2 else 23), title, 63 if index < 2 else 46, WHITE, DISPLAY)
-        label(draw, (57, 109 if index < 2 else 73), subtitle, 27 if index < 2 else 23, accent)
+        label(draw, (54, 25 if index < 2 else 19), title, 63 if index < 2 else 50, WHITE, DISPLAY)
+        label(draw, (57, 98 if index < 2 else 75), subtitle, 32 if index < 2 else 26, accent)
         left, hub, right = 442, 608, 792
         for x in range(370, 912, 17):
             for y in range(19, height - 11, 17):
@@ -211,9 +218,10 @@ def projects():
             draw.line((398, 77, 398, 89), fill=accent, width=2)
             draw.line((389, 89, 408, 89), fill=accent, width=2)
             draw.line(((hub, middle - 21), (hub, 33), (799, 33)), fill="#3a5884", width=2)
-            draw.line(((hub, middle - 21), (hub, 143), (769, 143)), fill="#3a5884", width=2)
+            draw.line(((hub + 30, middle - 21), (hub + 57, middle + 3), (hub + 57, 133), (769, 133)),
+                      fill="#3a5884", width=2)
         elif index == 2:
-            for y in (24, height - 23):
+            for y in (24, height - 10):
                 draw.line(((680, middle), (713, y), (858, y)), fill="#3a6275", width=2)
                 node(draw, (858, y), 4, accent, open_center=True)
         else:
@@ -223,8 +231,8 @@ def projects():
             draw.line((822, 66, 847, 66), fill=accent, width=2)
         for x, y, port in zip((left, hub, right), (middle, middle - 21, middle), ports):
             node(draw, (x, y), 6, accent, open_center=True)
-            label(draw, (x, middle + 20), port, 26 if index < 2 else 23, MUTED, anchor="mt")
-        base.save(directory / f"{slug}.png", optimize=True)
+            label(draw, (x, middle + 20), port, 35 if index < 2 else 31, "#c2d5e9", anchor="mt")
+        base.quantize().save(directory / f"{slug}.png", optimize=True)
         if index < 2:
             frames = []
             for step in range(40):
